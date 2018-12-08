@@ -1,0 +1,40 @@
+package IO输入输出流.对象的序列化操作;
+
+import java.io.*;
+
+class Person implements Serializable{
+    private String name;
+    private int age;
+
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                '}';
+    }
+}
+
+public class Test {
+    public static void main(String[] args) throws Exception {
+        File file = new File("C:\\Users\\hasee\\Desktop\\test.txt");
+
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file));
+
+        Person person = new Person("张三",13);
+        oos.writeObject(person);
+
+        oos.close();
+
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
+
+        Object obj =   ois.readObject();
+
+        System.out.println(obj);
+    }
+}
